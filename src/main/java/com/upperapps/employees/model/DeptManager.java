@@ -1,5 +1,6 @@
 package com.upperapps.employees.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -36,12 +37,12 @@ public class DeptManager implements Serializable {
     @Column(name = "to_date")
     private Date toDate;
 
-    @JsonManagedReference
+    @JsonBackReference
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "emp_no", referencedColumnName = "emp_no", insertable = false, updatable = false)
     private Employee employee;
 
-    @JsonManagedReference
+    @JsonBackReference
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "dept_no", referencedColumnName = "dept_no", insertable = false, updatable = false)
     private Department department;

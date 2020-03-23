@@ -1,6 +1,7 @@
 package com.upperapps.employees.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.CascadeType;
@@ -57,11 +58,11 @@ public class Employee implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date hireDate;
 
-    @JsonBackReference
+    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
     private List<DeptEmployees> deptEmployees;
 
-    @JsonBackReference
+    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
     private List<DeptManager> deptManagers;
 
