@@ -3,18 +3,31 @@ package com.upperapps.employees.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.sql.Date;
+import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "employees", schema = "employees")
 @XmlRootElement
 @Data
-public class Employee {
+public class Employee implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     @Id
     @NotNull
     @Column(name = "emp_no")
@@ -36,6 +49,7 @@ public class Employee {
 
     @NotNull
     @Column(name = "gender")
+    @Enumerated(EnumType.STRING)
     private GenderType gender;
 
     @NotNull
@@ -44,16 +58,16 @@ public class Employee {
     private Date hireDate;
 
     @JsonBackReference
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employees", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
     private List<DeptEmployees> deptEmployees;
 
     @JsonBackReference
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employees", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
     private List<DeptManager> deptManagers;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employees", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
     private List<Salary> salary;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employees", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
     private List<Title> title;
 }
