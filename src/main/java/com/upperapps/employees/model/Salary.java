@@ -1,14 +1,13 @@
 package com.upperapps.employees.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -23,13 +22,16 @@ import java.util.Date;
 @Entity
 @Table(name = "salaries", schema = "employees")
 @XmlRootElement
-@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="salaryId")
+@IdClass(SalaryPK.class)
 @Data
 public class Salary implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @EmbeddedId
-    private SalaryPK salaryId;
+    @Id
+    private Long empNo;
+
+    @Id
+    private Date fromDate;
 
     @NotNull
     @Column(name = "to_date")

@@ -3,11 +3,9 @@ package com.upperapps.employees.model;
 import lombok.Data;
 
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-@Embeddable
 @Data
 public class DeptEmployeesPK implements Serializable {
     private static final long serialVersionUID = 1L;
