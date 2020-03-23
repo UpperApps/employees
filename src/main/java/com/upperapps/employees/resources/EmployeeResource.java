@@ -7,18 +7,16 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Optional;
 
 @RestController
-@RequestMapping("/employees")
+@RequestMapping(value = "/employees", produces = "application/json")
 public class EmployeeResource {
 
     private final EmployeeRepository employeesRepository;
@@ -37,13 +35,10 @@ public class EmployeeResource {
     }
 
     @GetMapping("/{id}")
-    public Optional<Employee> get(@PathVariable String id) {
+    public Employee get(@PathVariable String id) {
 
-        return employeesRepository.findById(Long.parseLong(id));
-    }
-
-    @ExceptionHandler(Exception.class)
-    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR, reason = "Error message")
-    public void handleError() {
+        return employeesRepository.findById(Long.parseLong(id))
+                                  .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                                                                                 "Employee not found with id " + id));
     }
 }
