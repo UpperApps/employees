@@ -1,0 +1,6 @@
+[core]
+	excludesfile = /Users/rodrigo.melo/.gitignore_global
+	autocrlf = input
+[user]
+	name = Rodrigo Melo
+	email = rod.melo.ca@gmail.com
