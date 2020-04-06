@@ -1,0 +1,38 @@
+# Docker compose file to create the local development environment.
+version: '2'
+services:
+  mysql:
+    image: mysql
+    ports:
+      - '3307:3306'
+    environment:
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=123456
+      - MYSQL_ROOT_PASSWORD=fab014
+    volumes:
+      - '/Users/rodrigo.melo/Repositories/Studies/Employees/mysql:/var/lib/mysql'
+  keycloak:
+    image: jboss/keycloak
+    ports:
+      - '8081:8080'
+    environment:
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=fab014
+      - DB_VENDOR=MYSQL
+      - DB_DATABASE=keycloak
+      - DB_USER=admin
+      - DB_PASSWORD=123456
+      - DB_PORT=3306
+      - DB_ADDR=mysql_keycloak
+  mysql_keycloak:
+    image: mysql
+    ports:
+      - '3306:3306'
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=123456
+      - MYSQL_ROOT_PASSWORD=fab014
+      - MYSQL_DATABASE=keycloak
+    volumes:
+      - '/Users/rodrigo.melo/Repositories/Studies/Employees/mysql_keycloak:/var/lib/mysql'
