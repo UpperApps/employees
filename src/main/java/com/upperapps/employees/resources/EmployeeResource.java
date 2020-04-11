@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 
 @RestController
-@RequestMapping(value = "/employees", produces = "application/json")
+@RequestMapping(value = "/api/employees", produces = "application/json")
 public class EmployeeResource {
 
     private final EmployeeRepository employeesRepository;
@@ -27,6 +28,7 @@ public class EmployeeResource {
     }
 
     @GetMapping()
+    @PreAuthorize("hasAnyAuthority('ROLE_USER')")
     public Iterable<Employee> list(@RequestParam Integer page, @RequestParam Integer size, @RequestParam String sortBy) {
 
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, sortBy));
@@ -35,6 +37,7 @@ public class EmployeeResource {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ROLE_USER')")
     public Employee get(@PathVariable String id) {
 
         return employeesRepository.findById(Long.parseLong(id))
