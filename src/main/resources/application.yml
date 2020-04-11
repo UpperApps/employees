@@ -1,0 +1,42 @@
+spring:
+    datasource:
+        ## MySQL Configuration
+        url: jdbc:mysql://localhost:3307/employees
+        username: admin
+        password: 123456
+    jpa:
+        hibernate:
+            ddl-auto: none
+            use-new-id-generator-mappings: false
+        properties:
+            hibernate:
+                # If it's used @Column(nullable = false) checks nullability before hit the DB.
+                check_nullability: true
+                # Logging and debugging (Set to false when finishing debug)
+                show_sql: false
+                use_sql_comments: false
+                format_sql: true
+    security:
+        oauth2:
+            client:
+                registration:
+                    employees-app:
+                        client-id: employees-app
+                        client-secret: 7f6ced79-4875-43b5-811e-88817893b133
+                        client-name: EmployeesApp
+                        client-authentication-method: basic
+                        authorization-grant-type: authorization_code
+                        scope:
+                            - openid
+                        provider: springbootkeycloak
+                        redirect-uri: http://localhost:8080
+                provider:
+                    springbootkeycloak:
+                        authorization-uri: http://localhost:8081/auth/realms/springbootkeycloak/protocol/openid-connect/auth
+                        issuer-uri: http://localhost:8081/auth/realms/springbootkeycloak
+                        token-uri: http://localhost:8081/auth/realms/springbootkeycloak/protocol/openid-connect/token
+                        jwk-set-uri: http://localhost:8081/auth/realms/springbootkeycloak/protocol/openid-connect/certs
+                        user-info-uri: http://localhost:8081/auth/realms/springbootkeycloak/protocol/openid-connect/userinfo
+                        user-info-authentication-method: header
+                        user-name-attribute: preferred_username
+          

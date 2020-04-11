@@ -16,7 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 
 @RestController
-@RequestMapping(value = "/employees", produces = "application/json")
+@RequestMapping(value = "/api/employees", produces = "application/json")
 public class EmployeeResource {
 
     private final EmployeeRepository employeesRepository;
