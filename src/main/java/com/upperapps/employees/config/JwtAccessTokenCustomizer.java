@@ -48,7 +48,7 @@ public class JwtAccessTokenCustomizer extends DefaultAccessTokenConverter implem
      */
     @Override
     public OAuth2Authentication extractAuthentication(Map<String, ?> tokenMap) {
-        LOG.debug("Begin extractAuthentication: tokenMap = {}", tokenMap);
+        LOG.info("Begin extractAuthentication: tokenMap = {}", tokenMap);
 
         JsonNode token = mapper.convertValue(tokenMap, JsonNode.class);
         Set<String> audienceList = extractClients(token); // extracting client names
@@ -63,13 +63,13 @@ public class JwtAccessTokenCustomizer extends DefaultAccessTokenConverter implem
         Authentication usernamePasswordAuthentication = new UsernamePasswordAuthenticationToken(
                 authentication.getPrincipal(), "N/A", authorities);
 
-        LOG.debug("End extractAuthentication");
+        LOG.info("End extractAuthentication");
 
         return new OAuth2Authentication(request, usernamePasswordAuthentication);
     }
 
     private List<GrantedAuthority> extractRoles(JsonNode jwt) {
-        LOG.debug("Begin extractRoles: jwt = {}", jwt);
+        LOG.info("Begin extractRoles: jwt = {}", jwt);
         Set<String> rolesWithPrefix = new HashSet<>();
 
         jwt.path(CLIENT_NAME_ELEMENT_IN_JWT).elements().forEachRemaining(e -> e.path(ROLE_ELEMENT_IN_JWT).elements()
@@ -78,13 +78,13 @@ public class JwtAccessTokenCustomizer extends DefaultAccessTokenConverter implem
         final List<GrantedAuthority> authorityList = AuthorityUtils
                 .createAuthorityList(rolesWithPrefix.toArray(new String[0]));
 
-        LOG.debug("End extractRoles: roles = {}", authorityList);
+        LOG.info("End extractRoles: roles = {}", authorityList);
 
         return authorityList;
     }
 
     private Set<String> extractClients(JsonNode jwt) {
-        LOG.debug("Begin extractClients: jwt = {}", jwt);
+        LOG.info("Begin extractClients: jwt = {}", jwt);
 
         if (jwt.has(CLIENT_NAME_ELEMENT_IN_JWT)) {
             JsonNode resourceAccessJsonNode = jwt.path(CLIENT_NAME_ELEMENT_IN_JWT);
@@ -92,7 +92,7 @@ public class JwtAccessTokenCustomizer extends DefaultAccessTokenConverter implem
             final Set<String> clientNames = new HashSet<>();
             resourceAccessJsonNode.fieldNames().forEachRemaining(clientNames::add);
 
-            LOG.debug("End extractClients: clients = {}", clientNames);
+            LOG.info("End extractClients: clients = {}", clientNames);
 
             return clientNames;
 

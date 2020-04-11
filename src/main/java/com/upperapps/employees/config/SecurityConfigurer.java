@@ -51,7 +51,8 @@ public class SecurityConfigurer extends ResourceServerConfigurerAdapter {
                     .disable()
                     .authorizeRequests()
                     .antMatchers(securityProperties.getApiMatcher())
-                    .authenticated();
+                    .authenticated()
+                    .and();
     }
 
     @Bean
