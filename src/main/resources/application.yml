@@ -18,25 +18,8 @@ spring:
                 format_sql: true
     security:
         oauth2:
-            client:
-                registration:
-                    employees-app:
-                        client-id: employees-app
-                        client-secret: 7f6ced79-4875-43b5-811e-88817893b133
-                        client-name: EmployeesApp
-                        client-authentication-method: basic
-                        authorization-grant-type: authorization_code
-                        scope:
-                            - openid
-                        provider: springbootkeycloak
-                        redirect-uri: http://localhost:8080
-                provider:
-                    springbootkeycloak:
-                        authorization-uri: http://localhost:8081/auth/realms/springbootkeycloak/protocol/openid-connect/auth
-                        issuer-uri: http://localhost:8081/auth/realms/springbootkeycloak
-                        token-uri: http://localhost:8081/auth/realms/springbootkeycloak/protocol/openid-connect/token
-                        jwk-set-uri: http://localhost:8081/auth/realms/springbootkeycloak/protocol/openid-connect/certs
-                        user-info-uri: http://localhost:8081/auth/realms/springbootkeycloak/protocol/openid-connect/userinfo
-                        user-info-authentication-method: header
-                        user-name-attribute: preferred_username
-          
+            resourceserver:
+                jwt:
+                    jwk-set-uri: http://localhost:8081/auth/realms/springbootkeycloak/protocol/openid-connect/certs
+                    issuer-uri: http://localhost:8081/auth/realms/springbootkeycloak
+                    key-value: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmypPirTugDj5wWJYXAT4trAvydoOWjNkn3dqFTpJBzJaYAyVSyevsIWBzRxm+gw3E+PaJN4lwUJwpnjw9cEmURNrO2Er0y4kf0uz4B/4TPv/9QR2N0QDSRiApJNH3Llv8mEh4KEAdYVTL/KblQ1kJgwyMEPs2XqLF4Bpq5iZaxdPbnQIMSYRlsGbiNVNvI+666wflaeUhkA7o8AhAmJallp91iOB9KqwUfEJn0cJwQZdvCumye3bp0bDbI1yaaE5IRUQB7iJnZPLxA3+W1NzsrYdOrd/EmvAgjkO2Tl7E1NoNkq3kY0MpRWzcSpaPylmIUStqgx6Gdyra0w/m2v5EwIDAQAB
