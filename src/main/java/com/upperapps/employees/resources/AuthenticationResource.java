@@ -1,6 +1,13 @@
 package com.upperapps.employees.resources;
 
-import org.springframework.web.bind.annotation.GetMapping;
+import com.upperapps.employees.model.Token;
+import com.upperapps.employees.model.User;
+import com.upperapps.employees.service.AuthenticationService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -8,8 +15,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/login", produces = "application/json")
 public class AuthenticationResource {
 
-    @GetMapping
-    public String login() {
-        return "Tá logado!";
+    private AuthenticationService authenticationService;
+
+    @Autowired
+    public AuthenticationResource(AuthenticationService authenticationService) {
+        this.authenticationService = authenticationService;
+    }
+
+    @PostMapping
+    public ResponseEntity<Token> login(@RequestBody User user) {
+        ResponseEntity<Token> token = authenticationService.getToken(user);
+
+        return token;
     }
 }

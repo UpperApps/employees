@@ -21,9 +21,7 @@ public class OAuth2LoginSecurityConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(final ResourceServerSecurityConfigurer resources) throws Exception {
 
-        System.out.println("Resouruce ID: " + config.getResourceId());
-        System.out.println("Server: " + config.getServerAddress());
-        resources.resourceId(config.getResourceId());
+        resources.resourceId(config.getClientId());
     }
 
     @Override

@@ -13,6 +13,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AppConfig {
-    private String resourceId;
-    private String serverAddress;
+    private String clientId;
+    private String authenticationServerAddress;
+    private String clientSecret;
+    private String grantType;
+    private String scope;
 }

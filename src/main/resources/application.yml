@@ -24,5 +24,8 @@ security:
                 key-set-uri: http://localhost:8081/auth/realms/springbootkeycloak/protocol/openid-connect/certs
 ## Custom Properties
 global:
-    resource_id: employees-app
-    server_address: http://localhost:8080
+    client_id: employees-app
+    client_secret: 7f6ced79-4875-43b5-811e-88817893b133
+    grant_type: password
+    scope: openid
+    authentication_server_address: http://localhost:8081
