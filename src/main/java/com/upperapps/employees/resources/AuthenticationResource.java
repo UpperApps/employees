@@ -24,8 +24,7 @@ public class AuthenticationResource {
 
     @PostMapping
     public ResponseEntity<Token> login(@RequestBody User user) {
-        ResponseEntity<Token> token = authenticationService.getToken(user);
-
-        return token;
+        
+        return ResponseEntity.ok(authenticationService.getToken(user));
     }
 }
