@@ -27,7 +27,7 @@ public class AuthenticationService {
         this.appConfig = appConfig;
     }
 
-    public ResponseEntity<Token> getToken(User user) {
+    public Token getToken(User user) {
         var headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
@@ -44,7 +44,8 @@ public class AuthenticationService {
         var url = String.format("%s/auth/realms/springbootkeycloak/protocol/openid-connect/token",
                 appConfig.getAuthenticationServerAddress());
 
-        ResponseEntity<Token> token = restTemplate.postForEntity(url, request, Token.class);
+        Token token = restTemplate.postForEntity(url, request, Token.class).getBody();
+        
         return token;
     }
 
