@@ -20,6 +20,7 @@ public class AuthenticationService {
     private RestTemplate restTemplate;
     private AppConfig appConfig;
 
+    // TODO: Change RestTemplate implementation for the new WebClient implementation.
     @Autowired
     public AuthenticationService(RestTemplateBuilder restTemplateBuilder, AppConfig appConfig) {
         this.restTemplate = restTemplateBuilder.build();

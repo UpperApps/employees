@@ -7,11 +7,13 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 
+// TODO: Change this configuration to use the new Spring Security (Spring 5) configuration.
+//  See https://github.com/spring-projects/spring-security/wiki/OAuth-2.0-Migration-Guide
 @Configuration
 @EnableResourceServer
 public class OAuth2LoginSecurityConfig extends ResourceServerConfigurerAdapter {
 
-    private AppConfig config;
+    private final AppConfig config;
 
     @Autowired
     public OAuth2LoginSecurityConfig(AppConfig config) {
